@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>글쓰기</title>
+
+    <script language="javascript">
+      // 함수 선언 방법
+      // function 함수명(파라미터, 파라미터) {   }  참고로 파라미터에 타입 들어가지 않음
+      function sendData(){
+        // 변수 선언 방법
+        // var 변수명;
+        var title = document.getElementById("title").value;
+        // getElementById는 tag 전체를 가져오는 api, 이름 자체로 보면 아이디 값을 통해서 항목을 가져오는 메소드임
+        var author = document.getElementById("author").value;
+        // findViewById 와 비슷하다. 변수에 실제 값을 넣어주는군
+        var content = document.getElementById("content").value;
+
+        var jsonString = '{ '
+        jsonString = jsonString + ' title:"'+title+'"';
+        jsonString = jsonString + ', author:"'+author+'"';
+        jsonString = jsonString + ', content:"'+content+'"';
+        jsonString = jsonString + '} '
+
+        document.getElementById("json").value = jsonString; // 속성에 직접 값을 넣어줌, 즉, jsonString 값을 "json" 에 넣어준 것임
+        // form 을 서버로 전송
+        document.getElementById("form").submit(); // "form" 으로부터 전체 값을 가져와서 submit 해준다.
+        // alert(title);   // 이게 뭐냐면 일종의 javascript api 임. 그냥 불러와서 쓰면 대화상자가 뜬다
+      }
+
+    </script>
+
+  </head>
+  <body>
+<h1>글쓰기</h1>
+<p>새글을 입력해 주세요. </p>
+
+<p>
+<form name="form" id="form" method="post" action="/bbs/insert.jsp" onsubmit="return false;"> <!-- 방법, 보내줄 장소(절대 경로로 사용 가능)  -->
+  <input type="hidden" name="json" id="json" />
+제목: <input type="text" name="title" id="title" size="50"/> <br/>
+작성자: <input type="text" name="author" id="author" size="50"/> <br/>
+내용: <textarea name="content" id="content" cols="50" rows="10"> </textarea> <br/>
+
+<input type="button" onclick="sendData()" value="전송"/> <!-- submit으로만 해도 form 안에 있는 내용이 전달된다  -->  <!-- 버튼을 submit 에서 onclick 이벤트로 바꿔준다. -->
+</form>
+</p>
+
+  </body>
+</html>
